@@ -6,6 +6,7 @@ theGame.prototype = {
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.camera.follow(character);
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
   
@@ -31,6 +32,7 @@ theGame.prototype = {
   update: function(){
     this.game.physics.arcade.collide(character, this.platforms);
     this.game.physics.arcade.collide(character, this.turret);
+    var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
     var standing = character.body.blocked.down || character.body.touching.down;
     if (character.body) {
@@ -50,7 +52,11 @@ theGame.prototype = {
       character.body.velocity.y = -600;
       
     }
-    
+    if (touchrocket) {
+      console.log("Died");
+      character.x = 0;
+      character.y = 0;
+    }
     reload += 1;
     rocket.body.velocity.y = -400
     if (reload == 70) {
