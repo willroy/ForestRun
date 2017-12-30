@@ -16,6 +16,7 @@ preload.prototype = {
     this.game.load.image('jump_pad', 'assets/jumppad.png');
     this.game.load.image('turret', 'assets/turret.png');
     this.game.load.image('rocket', 'assets/rocket.png');
+    this.game.load.image('enemy', 'assets/RightMon.png');
 
   },
   create: function(){

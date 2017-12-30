@@ -3,6 +3,10 @@ var character, rocket, reload;
 theGame.prototype = {
   create: function(){
     this.stage.backgroundColor = "#FFFFFF"
+    enemy = this.game.add.sprite(100, 100, "enemy");
+    this.game.physics.enable(enemy);
+    enemy.body.gravity.y = 1000;
+    enemy.body.collideWorldBounds = true;
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -31,6 +35,7 @@ theGame.prototype = {
   },
   update: function(){
     this.game.physics.arcade.collide(character, this.platforms);
+    this.game.physics.arcade.collide(enemy, this.platforms);
     this.game.physics.arcade.collide(character, this.turret);
     var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
@@ -57,8 +62,15 @@ theGame.prototype = {
       character.x = 0;
       character.y = 0;
     }
+    if (character.x > enemy.x) {
+      enemy.body.velocity.x = 100;
+    } if (character.x < enemy.x) {
+      enemy.body.velocity.x = -100;
+    } if (character.x+10 > enemy.x && character.x-10 < enemy.x) {
+      enemy.body.velocity.x = 0;
+    }
     reload += 1;
-    rocket.body.velocity.y = -400
+    rocket.body.velocity.y = -400;
     if (reload == 70) {
       rocket.kill(); 
       rocket = this.rocket.create(430, 325, "rocket"); 
