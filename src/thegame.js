@@ -10,7 +10,8 @@ theGame.prototype = {
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.camera.follow(character);
+    
+    
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
   
@@ -79,6 +80,24 @@ theGame.prototype = {
   }
 
 }
+
+//var level1;
+
+//function read_level() {
+//    readFiles('levels').then(files => {
+//    console.log( "loaded ", files.length );
+//    files.forEach( (item, index) => {
+//        console.log( "item",index, "size ", item.contents.length); });
+//    var file = new File("levels/level1.txt");
+//    file.open("r");
+//    level1 = file.readln();
+//})
+//
+//construct_level: function() {
+//  level1
+//}
+
+
 
  //             _   _
  //            /\\_//\
