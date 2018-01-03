@@ -1,12 +1,21 @@
 var theGame = function(game){}
-var character, rocket, reload;
+var character;
+var rocket = null; 
+var reload;
 theGame.prototype = {
+  
+
+  level1_create: function() {
+     
+  },
   create: function(){
     this.stage.backgroundColor = "#FFFFFF"
-    enemy = this.game.add.sprite(100, 100, "enemy");
-    this.game.physics.enable(enemy);
-    enemy.body.gravity.y = 1000;
-    enemy.body.collideWorldBounds = true;
+    this.game.add.sprite(0,0,"background1")
+    //enemy = this.game.add.sprite(100, 100, "enemy");
+    enemy = null;
+    //this.game.physics.enable(enemy);
+    //enemy.body.gravity.y = 1000;
+    //enemy.body.collideWorldBounds = true;
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -20,19 +29,26 @@ theGame.prototype = {
     this.jump_pad = this.add.physicsGroup();
     this.platforms = this.add.physicsGroup();
     
-    this.platforms.create(0,300,"platform_ni");
-    this.jump_pad.create(200, 325, "jump_pad");
-    this.platforms.create(270,200,"platform_ni");
-    rocket = this.rocket.create(430, 325, "rocket"); 
-    this.turret.create(430, 325, "turret");
-    this.platforms.create(480,200,"platform_ni");
-    
+    //this.platforms.create(0,300,"platform_ni");
+    //this.jump_pad.create(200, 325, "jump_pad");
+    //this.platforms.create(270,200,"platform_ni");
+    //rocket = this.rocket.create(430, 315, "rocket"); 
+    //this.turret.create(430, 325, "turret");
+    //this.platforms.create(480,200,"platform_ni");
+    this.platforms.create(510,200,"platform_ni");
+    this.platforms.create(440,200,"platform_ni");
+    this.platforms.create(160,200,"platform_ni");
+    this.platforms.create(60,200,"platform_ni");
+    this.platforms.create(-10,200,"platform_ni");
+    this.platforms.create(274,209, "right_f_wall");
+    this.platforms.create(440,209, "left_f_wall");
     this.platforms.setAll('body.allowGravity', false);
     this.platforms.setAll('body.immovable', true);
     this.turret.setAll('body.allowGravity', false);
     this.turret.setAll('body.immovable', true);
     cursors = this.game.input.keyboard.createCursorKeys();
     reload = 1;
+   
   },
   update: function(){
     this.game.physics.arcade.collide(character, this.platforms);
@@ -63,22 +79,29 @@ theGame.prototype = {
       character.x = 0;
       character.y = 0;
     }
-    if (character.x > enemy.x) {
-      enemy.body.velocity.x = 100;
-    } if (character.x < enemy.x) {
-      enemy.body.velocity.x = -100;
-    } if (character.x+10 > enemy.x && character.x-10 < enemy.x) {
-      enemy.body.velocity.x = 0;
+    if (enemy !== null) {
+      if (character.x > enemy.x) {
+        enemy.body.velocity.x = 100;
+      } if (character.x < enemy.x) {
+        enemy.body.velocity.x = -100;
+      } if (character.x+10 > enemy.x && character.x-10 < enemy.x) {
+        enemy.body.velocity.x = 0;
+      }
     }
-    reload += 1;
-    rocket.body.velocity.y = -400;
-    if (reload == 70) {
-      rocket.kill(); 
-      rocket = this.rocket.create(430, 325, "rocket"); 
-      reload = 0;
+    
+    if (rocket !== null) {
+      reload += 1;
+      rocket.body.velocity.y = -400;
+      if (reload == 70) {
+        rocket.kill(); 
+        rocket = this.rocket.create(430, 315, "rocket"); 
+        reload = 0;
+      }
     }
+  },
+  level1_update: function() {
+    
   }
-
 }
 
 //var level1;
@@ -88,13 +111,9 @@ theGame.prototype = {
 //    console.log( "loaded ", files.length );
 //    files.forEach( (item, index) => {
 //        console.log( "item",index, "size ", item.contents.length); });
-//    var file = new File("levels/level1.txt");
-//    file.open("r");
-//    level1 = file.readln();
 //})
 //
 //construct_level: function() {
-//  level1
 //}
 
 
