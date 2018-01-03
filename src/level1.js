@@ -1,29 +1,23 @@
 var theGame = function(game){}
-var character;
+var character = null;
+var enemy = null;
 var rocket = null; 
 var reload;
 theGame.prototype = {
-  
-
   level1_create: function() {
      
   },
   create: function(){
     this.stage.backgroundColor = "#FFFFFF"
     this.game.add.sprite(0,0,"background1")
-    //enemy = this.game.add.sprite(100, 100, "enemy");
-    enemy = null;
-    //this.game.physics.enable(enemy);
-    //enemy.body.gravity.y = 1000;
-    //enemy.body.collideWorldBounds = true;
-    character = this.game.add.sprite(0,0,"character");
-    this.game.physics.enable(character);
+    
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     
-    
+    character = this.game.add.sprite(0,0,"character");
+    this.game.physics.enable(character);
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
-  
+    
     this.turret = this.add.physicsGroup();
     this.rocket = this.add.physicsGroup();
     this.jump_pad = this.add.physicsGroup();
