@@ -9,11 +9,11 @@ gameTitle.prototype = {
   },
   
   playTheGame: function(){
-    this.game.state.start("TheGame");
+    this.game.state.start("level1");
   },
   exitTheGame: function(){
-    this.playButton.destroy;
-    this.exitButton.destroy;
+    this.playButton.destroy();
+    this.exitButton.destroy();
     
   }
 }
