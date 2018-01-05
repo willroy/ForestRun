@@ -12,3 +12,14 @@ boot.prototype = {
 		this.game.state.start("Preload");
 	}
 }
+ //             _   _
+ //            /\\_//\
+ //           / o _ o \
+ //          /_   X   _\
+ //            \_____/
+ //            /  o  \
+ //           /       \__
+ //           \_(_|_)___ \
+ //                  (___/
+ // By will Roy
+ 

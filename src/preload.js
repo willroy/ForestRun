@@ -17,8 +17,10 @@ preload.prototype = {
     this.game.load.image('jump_pad', 'assets/misc_objects/jumppad.png');
     this.game.load.image('turret', 'assets/misc_objects/turret.png');
     this.game.load.image('rocket', 'assets/misc_objects/rocket.png');
-    
-    this.game.load.image('background1', 'assets/levelbackgrounds/background1.png');
+    this.game.load.image('nextlevel', 'assets/misc_objects/end.png')
+    this.game.load.image('background1', 'assets/levelbackgrounds/backgroundl1.png');
+    this.game.load.image('background2', 'assets/levelbackgrounds/backgroundl2.png');
+    this.game.load.image('background3', 'assets/levelbackgrounds/backgroundl3.png');
     
 
   },
@@ -26,3 +28,14 @@ preload.prototype = {
     this.game.state.start("GameTitle");
   }
 }
+ //             _   _
+ //            /\\_//\
+ //           / o _ o \
+ //          /_   X   _\
+ //            \_____/
+ //            /  o  \
+ //           /       \__
+ //           \_(_|_)___ \
+ //                  (___/
+ // By will Roy
+ 

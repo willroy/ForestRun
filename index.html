@@ -7,19 +7,22 @@
     <script src="src/gametitle.js"></script>
     <script src="src/level1.js"></script>
     <script src="src/level2.js"></script>
+    <script src="src/level3.js"></script>
+    <script src="src/level4.js"></script>
     <script src="src/gameover.js"></script>	
     <style>
       body{margin:0}
     </style>
     <script>
       (function() {
-      var game = new Phaser.Game(640, 360, Phaser.CANVAS, "game");
+      var game = new Phaser.Game(800, 500, Phaser.CANVAS, "game");
       game.state.add("Boot",boot);
       game.state.add("Preload",preload);
       game.state.add("GameTitle",gameTitle);
       game.state.add("level1",level1);
       game.state.add("level2",level2);
-      game.state.add("GameOver",gameOver);
+      game.state.add("level3",level3);
+      game.state.add("level4",level4);
       game.state.start("Boot");
       })();    
     </script>
@@ -27,3 +30,15 @@
   <body>
   </body>
 </html>
+ <!-- _   _
+     /\\_//\
+    / o _ o \
+   /_   X   _\
+     \_____/
+     /  o  \
+    /       \__
+    \_(_|_)___ \
+           (___/
+  By will Roy
+ -->
+ 
