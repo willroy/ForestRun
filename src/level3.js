@@ -31,7 +31,7 @@ level3.prototype = {
     this.platforms.create(440,340,"platform_ni");
     this.platforms.create(130,300,"platform_ni");
     
-        rocket = this.rocket.create(430, 315, "rocket"); 
+    rocket = this.rocket.create(430, 315, "rocket"); 
     //this.platforms.create(60,340,"platform_ni");
     this.platforms.create(-10,340,"platform_ni");
     this.platforms.setAll('body.allowGravity', false);
