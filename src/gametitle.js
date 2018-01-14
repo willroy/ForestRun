@@ -8,7 +8,7 @@ gameTitle.prototype = {
   },
   
   playTheGame: function(){
-    this.game.state.start("level1");
+    this.game.state.start("level5");
   }
 }
  //             _   _

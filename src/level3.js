@@ -3,15 +3,22 @@ var character = null;
 var enemy = null;
 var rocket = null; 
 var reload;
+var health = 2;
+var end;
+ var heart1, heart2, heart3;  
+var keyw,keyd,keya;
 level3.prototype = {
   create: function(){
-    this.stage.backgroundColor = "#FFFFFF"
-    this.game.add.sprite(0,0,"background3")
-    
+    this.stage.backgroundColor = "#FFFFFF";
+    this.game.add.sprite(0,0,"background3");
+    heart1 = this.game.add.sprite(0,0,"heart");    
+    heart2 = this.game.add.sprite(20,0,"heart");    
+    heart3 = this.game.add.sprite(40,0,"heart");    
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     end = this.game.add.sprite(690,209,"nextlevel");
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
+    this.game.physics.enable(end);
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
     
@@ -31,7 +38,10 @@ level3.prototype = {
     this.platforms.create(440,340,"platform_ni");
     this.platforms.create(130,300,"platform_ni");
     
-    rocket = this.rocket.create(430, 315, "rocket"); 
+    rocket = this.rocket.create(600, 300, "rocket"); 
+    this.game.physics.enable(rocket);
+    rocket.body.gravity.y = 2000;
+    rocket.body.collideWorldBounds = true;
     //this.platforms.create(60,340,"platform_ni");
     this.platforms.create(-10,340,"platform_ni");
     this.platforms.setAll('body.allowGravity', false);
@@ -39,27 +49,38 @@ level3.prototype = {
     this.turret.setAll('body.allowGravity', false);
     this.turret.setAll('body.immovable', true);
     cursors = this.game.input.keyboard.createCursorKeys();
+    keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     reload = 1;
    
   },
   update: function(){
+    if (health == 2) {
+//      heart3.kill();
+    }
+    if (health == 1) {
+//      heart2.kill();
+    }
+    heart1.kill();
+    heart2.kill();
+    heart3.kill();
     this.game.physics.arcade.collide(character, this.platforms);
+    this.game.physics.arcade.collide(rocket, this.platforms);
     this.game.physics.arcade.collide(enemy, this.platforms);
     this.game.physics.arcade.collide(character, this.turret);
     var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
     var standing = character.body.blocked.down || character.body.touching.down;
-    
+    var finish = this.game.physics.arcade.overlap(character, end);
+
     if (character.body) {
       character.body.velocity.x = 0;
-    }
-    if (cursors.left.isDown) {
-        character.body.velocity.x = -200;
-    } 
-     if (cursors.right.isDown) {
+    } if (keya.isDown || cursors.left.isDown) {
+      character.body.velocity.x = -200;
+    } if (keyd.isDown || cursors.right.isDown) {
       character.body.velocity.x = 200;
-    } 
-    if (cursors.up.isDown && standing) {
+    } if (keyw.isDown && standing || cursors.up.isDown && standing) {
       character.body.velocity.y = -400;
     }
 
@@ -67,14 +88,26 @@ level3.prototype = {
       console.log("Died");
       character.x = 0;
       character.y = 0;
+      health -= 1;
     }
-    
+    if (finish) {
+      this.game.state.start("level4");
+    }
+
     if (rocket !== null) {
       reload += 1;
-      rocket.body.velocity.x = -400;
-      if (reload == 70) {
+      rocket.body.velocity.x = -200;
+      if (rocket.body.touching.down) {
+        rocket.body.velocity.y = -550;
+      }
+      this.game.physics.enable(rocket);
+      rocket.body.gravity.y = 2000;
+      rocket.body.collideWorldBounds = true;
+      if (reload == 100) {
         rocket.kill(); 
-        rocket = this.rocket.create(430, 315, "rocket"); 
+      }
+      if (reload == 140) {
+        rocket = this.rocket.create(600,300, "rocket"); 
         reload = 0;
       }
     }

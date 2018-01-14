@@ -9,6 +9,7 @@ preload.prototype = {
     this.game.load.image('exit', 'assets/menu/exit.png');
     this.game.load.image('character', 'assets/character/character.png');
     this.game.load.image('enemy', 'assets/npcs/RightMonnew.png');
+    this.game.load.spritesheet('boss', 'assets/npcs/boss.png', 500,500, 14);
     this.game.load.image('platform_ni', 'assets/platforms/platformgrass.png');
     this.game.load.image('platform_test', 'assets/platforms/platform_ni.png');
     this.game.load.image('platform_i', 'assets/platforms/platform_i.png');
@@ -21,6 +22,9 @@ preload.prototype = {
     this.game.load.image('background1', 'assets/levelbackgrounds/backgroundl1.png');
     this.game.load.image('background2', 'assets/levelbackgrounds/backgroundl2.png');
     this.game.load.image('background3', 'assets/levelbackgrounds/backgroundl3.png');
+    this.game.load.image('background4', 'assets/levelbackgrounds/backgroundl4.png');
+    this.game.load.image('background5', 'assets/levelbackgrounds/backgroundl5.png');
+    this.game.load.image('heart', 'assets/character/heart.png');
     
 
   },

@@ -1,6 +1,7 @@
 var level2 = function(game){}
 var character = null;
 var end = null;
+var keyw,keyd,keya;
 level2.prototype = {
   create: function(){
     this.stage.backgroundColor = "#FFFFFF"
@@ -33,6 +34,9 @@ level2.prototype = {
     this.platforms.setAll('body.immovable', true);
     cursors = this.game.input.keyboard.createCursorKeys();
    
+    keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
   },
   update: function(){
     this.game.physics.arcade.collide(character, this.platforms);
@@ -41,14 +45,11 @@ level2.prototype = {
     var standing = character.body.blocked.down || character.body.touching.down;
     if (character.body) {
       character.body.velocity.x = 0;
-    }
-    if (cursors.left.isDown) {
-        character.body.velocity.x = -200;
-    } 
-     if (cursors.right.isDown) {
+    } if (keya.isDown || cursors.left.isDown) {
+      character.body.velocity.x = -200;
+    } if (keyd.isDown || cursors.right.isDown) {
       character.body.velocity.x = 200;
-    } 
-    if (cursors.up.isDown && standing) {
+    } if (keyw.isDown && standing || cursors.up.isDown && standing) {
       character.body.velocity.y = -400;
     }
     if (touchpad) {
