@@ -67,23 +67,22 @@ level1.prototype = {
     //pressing anything, then stop movement.
     if (character.body) {
       character.body.velocity.x = 0;
-     if (keyw.isDown && standing || cursors.up.isDown && standing) {
+    } if (keya.isDown || cursors.left.isDown) {
+      character.body.velocity.x = -200;
+      character.frame = 3;
+      direction = "left";
+    } if (keyd.isDown || cursors.right.isDown) {
+      character.body.velocity.x = 200;
+      character.frame = 2;
+      direction = "right";
+    } if (keyw.isDown && standing || cursors.up.isDown && standing) {
       if (direction = "right") {
         character.frame = 4;
       } if (direction = "left") {
         character.frame = 1; 
       }
       character.body.velocity.y = -400;
-    } else if (keya.isDown || cursors.left.isDown) {
-      character.body.velocity.x = -200;
-      character.frame = 3;
-      direction = "left";
-    }  else if (keyd.isDown || cursors.right.isDown) {
-      character.body.velocity.x = 200;
-      character.frame = 2;
-      direction = "right";
-    } 
-    } 
+    }
     //if character is at the level of the lava then the player has died.
     if (character.y >= 325) {
       console.log("Died");
