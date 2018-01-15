@@ -14,7 +14,6 @@ level5.prototype = {
     boss = this.game.add.sprite(150,-600,"boss");
     boss.animations.add("idle",[0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
     this.game.physics.enable(boss);
-
     //end = this.game.add.sprite(690,209,"nextlevel");
 
     character = this.game.add.sprite(0,0,"character");
@@ -25,21 +24,25 @@ level5.prototype = {
     this.platforms = this.add.physicsGroup();
     this.rocket = this.add.physicsGroup(); 
 
-    platform1 = this.game.add.sprite(0,340,"platform_ni");
+    platform1 = this.game.add.sprite(0,340,"boss_platform");
     this.game.physics.enable(platform1);
     platform1.body.immovable = true;
+    platform1.frame = 1;
 
-    platform2 = this.game.add.sprite(210,340,"platform_ni");
+    platform2 = this.game.add.sprite(210,340,"boss_platform");
     this.game.physics.enable(platform2);
     platform2.body.immovable = true;
+    platform2.frame = 2;
 
-    platform3 = this.game.add.sprite(420,340,"platform_ni");
+    platform3 = this.game.add.sprite(420,340,"boss_platform");
     this.game.physics.enable(platform3);
     platform3.body.immovable = true;
+    platform3.frame = 1;
 
-    platform4 = this.game.add.sprite(630,340,"platform_ni");
+    platform4 = this.game.add.sprite(630,340,"boss_platform");
     this.game.physics.enable(platform4);
     platform4.body.immovable = true;
+    platform4.frame = 2;
 
     cursors = this.game.input.keyboard.createCursorKeys();
     keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -65,7 +68,7 @@ level5.prototype = {
 
     if (attackcounter >= 1) {
       boss.body.velocity.y = 0;
-      if (attackcounter <= 80) {
+      if (attackcounter <= 80 && attackcounter >= 2) {
         boss.body.velocity.y = 400;
       }
     } 
@@ -107,6 +110,14 @@ level5.prototype = {
       character.x = 0;
       character.y = 0;
       health -= 1;
+      boss.x = 150; 
+      boss.y = -600;
+      boss.body.velocity.y = 0;
+      attackcounter = 0;
+      start = false; 
+      rocket.kill(); 
+      rocket2.kill(); 
+      rocket3.kill(); 
     }
    if (attackcounter == 190) {
       rocket.kill(); 
@@ -119,7 +130,16 @@ level5.prototype = {
       console.log("Died");
       character.x = 0;
       character.y = 0;
+      health -= 1;
+      boss.x = 150; 
+      boss.y = -600;
+      attackcounter = 0;
+      start = false; 
+      rocket.kill(); 
+      rocket2.kill(); 
+      rocket3.kill(); 
     }
+    console.log(attackcounter);
 
     if (character.body) {
       character.body.velocity.x = 0;
