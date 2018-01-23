@@ -2,6 +2,7 @@ var level1 = function(game){}
 var character = null;
 var end = null;
 var keyw,keyd,keya;
+var health = 5;
 //Some variables for the character object, the end door object and level1
 //function of the game class
 level1.prototype = {
@@ -11,7 +12,7 @@ level1.prototype = {
   create: function(){
     //add background color to do behind main bakground image (in the case that
     //the image has transparant areas where not filled.)
-    this.stage.backgroundColor = "#FFFFFF"
+    this.stage.backgroundColor = "#FFFFFF";
     //enable physics system (part of phaser language)
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     //add background image 
@@ -63,6 +64,33 @@ level1.prototype = {
     var finish = this.game.physics.arcade.overlap(character, end);
     var standing = character.body.blocked.down || character.body.touching.down;
     var direction;
+    var heart1, heart2, heart3, heart4, heart5;
+
+    if (health == 1) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+    }
+    if (health == 2) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+    }
+    if (health == 3) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+    }
+    if (health == 4) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+      heart4 = this.game.add.sprite(40,10,"heart");
+    }
+    if (health == 5) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+      heart4 = this.game.add.sprite(40,10,"heart");
+      heart5 = this.game.add.sprite(50,10,"heart");
+    }
     //if button push left or right, go in respective directions. if not
     //pressing anything, then stop movement.
     if (character.body) {
@@ -88,6 +116,12 @@ level1.prototype = {
       console.log("Died");
       character.x = 0;
       character.y = 0;
+      health -= 1;
+      if (heart1){ heart1.kill(); }
+      if (heart2){ heart2.kill(); }
+      if (heart3){ heart3.kill(); }
+      if (heart4){ heart4.kill(); }
+      if (heart5){ heart5.kill(); }
     }
     //if touched door then go to the next level.
     if (finish) {

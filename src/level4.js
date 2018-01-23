@@ -10,12 +10,14 @@ level4.prototype = {
     this.game.add.sprite(0,0,"background4")
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    end = this.game.add.sprite(517,247,"nextlevel");
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
 
     enemy = this.game.add.sprite(600,0,"enemy");
+    this.game.physics.enable(end);
     this.game.physics.enable(enemy);
     enemy.body.gravity.y = 1000;
     enemy.body.collideWorldBounds = true;
@@ -47,16 +49,48 @@ level4.prototype = {
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     reload = 1;
 
+    var health = 5
   },
   update: function(){
     this.game.physics.arcade.collide(character, this.platforms);
     this.game.physics.arcade.collide(enemy, this.platforms);
     this.game.physics.arcade.collide(character, this.turret);
-
+    
+    var finish = this.game.physics.arcade.overlap(character, end);
     var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
     var standing = character.body.blocked.down || character.body.touching.down;
+    var heart1, heart2, heart3, heart4, heart5;
 
+    if (health == 1) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+    }
+    if (health == 2) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+    }
+    if (health == 3) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+    }
+    if (health == 4) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+      heart4 = this.game.add.sprite(40,10,"heart");
+    }
+    if (health == 5) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+      heart4 = this.game.add.sprite(40,10,"heart");
+      heart5 = this.game.add.sprite(50,10,"heart");
+    }
+
+    if (finish) {
+      this.game.state.start("level5");
+    }
     if (character.body) {
       character.body.velocity.x = 0;
     } if (keya.isDown || cursors.left.isDown) {
