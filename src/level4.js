@@ -2,6 +2,7 @@ var level4 = function(game){}
 var character = null;
 var enemy = null;
 var rocket = null; 
+var heart1, heart2, heart3, heart4, heart5;
 var reload;
 var keyw,keyd,keya;
 level4.prototype = {
@@ -27,6 +28,11 @@ level4.prototype = {
     this.jump_pad = this.add.physicsGroup();
     this.platforms = this.add.physicsGroup();
     
+    heart1 = this.game.add.sprite(10,10,"heart");
+    heart2 = this.game.add.sprite(20,10,"heart");
+    heart3 = this.game.add.sprite(30,10,"heart");
+    heart4 = this.game.add.sprite(40,10,"heart");
+    heart5 = this.game.add.sprite(50,10,"heart");
     this.platforms.create(200,365,"platform_i");
     this.platforms.create(647,340,"platform_ni");
     this.platforms.create(510,340,"platform_ni");
@@ -59,34 +65,8 @@ level4.prototype = {
     var finish = this.game.physics.arcade.overlap(character, end);
     var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
+    var touchingenemy = this.game.physics.arcade.overlap(character, enemy);
     var standing = character.body.blocked.down || character.body.touching.down;
-    var heart1, heart2, heart3, heart4, heart5;
-
-    if (health == 1) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-    }
-    if (health == 2) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-    }
-    if (health == 3) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-    }
-    if (health == 4) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-    }
-    if (health == 5) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-      heart5 = this.game.add.sprite(50,10,"heart");
-    }
 
     if (finish) {
       this.game.state.start("level5");
@@ -110,8 +90,15 @@ level4.prototype = {
         enemy.body.velocity.x = 100;
       } if (character.x < enemy.x) {
         enemy.body.velocity.x = -100;
-      } if (character.x+5 > enemy.x && character.x-5 < enemy.x) {
-        enemy.body.velocity.x = 0;
+      } if (touchingenemy) {
+        character.x = 0;
+        character.y = 0;
+        health -= 1;
+        if (health == 4) { heart5.kill();console.log("deleted heart 5"); }
+        if (health == 3) { heart4.kill();console.log("deleted heart 4"); }
+        if (health == 2) { heart3.kill();console.log("deleted heart 3"); }
+        if (health == 1) { heart2.kill();console.log("deleted heart 2"); }
+        if (health == 0) { this.game.state.start("level1"); }
       }
     }
   }

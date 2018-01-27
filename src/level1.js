@@ -3,6 +3,7 @@ var character = null;
 var end = null;
 var keyw,keyd,keya;
 var health = 5;
+var heart1, heart2, heart3, heart4, heart5;
 //Some variables for the character object, the end door object and level1
 //function of the game class
 level1.prototype = {
@@ -37,6 +38,11 @@ level1.prototype = {
     this.platforms.create(647,340,"platform_ni");
     this.platforms.create(510,340,"platform_ni");
     
+    heart1 = this.game.add.sprite(10,10,"heart");
+    heart2 = this.game.add.sprite(20,10,"heart");
+    heart3 = this.game.add.sprite(30,10,"heart");
+    heart4 = this.game.add.sprite(40,10,"heart");
+    heart5 = this.game.add.sprite(50,10,"heart");
     this.platforms.create(440,340,"platform_ni");
     this.platforms.create(160,340,"platform_ni");
     this.platforms.create(60,340,"platform_ni");
@@ -52,6 +58,7 @@ level1.prototype = {
     keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+    health = 5;
   },
   //handles level events, movement, collsion detection, health and end level
   //events
@@ -64,33 +71,7 @@ level1.prototype = {
     var finish = this.game.physics.arcade.overlap(character, end);
     var standing = character.body.blocked.down || character.body.touching.down;
     var direction;
-    var heart1, heart2, heart3, heart4, heart5;
 
-    if (health == 1) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-    }
-    if (health == 2) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-    }
-    if (health == 3) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-    }
-    if (health == 4) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-    }
-    if (health == 5) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-      heart5 = this.game.add.sprite(50,10,"heart");
-    }
     //if button push left or right, go in respective directions. if not
     //pressing anything, then stop movement.
     if (character.body) {
@@ -117,11 +98,11 @@ level1.prototype = {
       character.x = 0;
       character.y = 0;
       health -= 1;
-      if (heart1){ heart1.kill(); }
-      if (heart2){ heart2.kill(); }
-      if (heart3){ heart3.kill(); }
-      if (heart4){ heart4.kill(); }
-      if (heart5){ heart5.kill(); }
+      if (health == 4) { heart5.kill();console.log("deleted heart 5"); }
+      if (health == 3) { heart4.kill();console.log("deleted heart 4"); }
+      if (health == 2) { heart3.kill();console.log("deleted heart 3"); }
+      if (health == 1) { heart2.kill();console.log("deleted heart 2"); }
+      if (health == 0) { this.game.state.start("level1"); }
     }
     //if touched door then go to the next level.
     if (finish) {

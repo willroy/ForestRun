@@ -15,6 +15,11 @@ level2.prototype = {
     character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
     
+    this.game.add.sprite(10,10,"heart");
+    this.game.add.sprite(20,10,"heart");
+    this.game.add.sprite(30,10,"heart");
+    this.game.add.sprite(40,10,"heart");
+    this.game.add.sprite(50,10,"heart");
     this.jump_pad = this.add.physicsGroup();
     this.platforms = this.add.physicsGroup();
     this.platforms.create(650,300,"platform_ni");
@@ -44,33 +49,7 @@ level2.prototype = {
     var touchpad = this.game.physics.arcade.overlap(character, this.jump_pad);
     var finish = this.game.physics.arcade.overlap(character, end);
     var standing = character.body.blocked.down || character.body.touching.down;
-    var heart1, heart2, heart3, heart4, heart5;
 
-    if (health == 1) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-    }
-    if (health == 2) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-    }
-    if (health == 3) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-    }
-    if (health == 4) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-    }
-    if (health == 5) {
-      heart1 = this.game.add.sprite(10,10,"heart");
-      heart2 = this.game.add.sprite(20,10,"heart");
-      heart3 = this.game.add.sprite(30,10,"heart");
-      heart4 = this.game.add.sprite(40,10,"heart");
-      heart5 = this.game.add.sprite(50,10,"heart");
-    }
     if (character.body) {
       character.body.velocity.x = 0;
     } if (keya.isDown || cursors.left.isDown) {
