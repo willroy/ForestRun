@@ -33,6 +33,7 @@ level4.prototype = {
     heart3 = this.game.add.sprite(30,10,"heart");
     heart4 = this.game.add.sprite(40,10,"heart");
     heart5 = this.game.add.sprite(50,10,"heart");
+    
     this.platforms.create(200,365,"platform_i");
     this.platforms.create(647,340,"platform_ni");
     this.platforms.create(510,340,"platform_ni");
@@ -55,9 +56,17 @@ level4.prototype = {
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     reload = 1;
 
-    var health = 5
   },
   update: function(){
+      
+    if (health == 0) { this.game.state.start("level1");
+    } else {
+    
+    if (health == 1) { heart2.kill(); heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 2) { heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 3) { heart4.kill(); heart5.kill(); }
+    if (health == 4) { heart5.kill(); }
+    }
     this.game.physics.arcade.collide(character, this.platforms);
     this.game.physics.arcade.collide(enemy, this.platforms);
     this.game.physics.arcade.collide(character, this.turret);
@@ -85,6 +94,8 @@ level4.prototype = {
       character.body.velocity.y = -500;
     }
 
+
+    console.log(health);
     if (enemy !== null) {
       if (character.x > enemy.x) {
         enemy.body.velocity.x = 100;
@@ -94,23 +105,41 @@ level4.prototype = {
         character.x = 0;
         character.y = 0;
         health -= 1;
-        if (health == 4) { heart5.kill();console.log("deleted heart 5"); }
-        if (health == 3) { heart4.kill();console.log("deleted heart 4"); }
-        if (health == 2) { heart3.kill();console.log("deleted heart 3"); }
-        if (health == 1) { heart2.kill();console.log("deleted heart 2"); }
+        if (health == 4) { 
+          if (heart5.body) {heart5.kill();}
+          console.log("deleted heart 5"); 
+        }
+        if (health == 3) {
+          if (heart5.body) {heart5.kill();}
+          if (heart4.body) {heart4.kill();}
+          console.log("deleted heart 4"); 
+        }
+        if (health == 2) { 
+          if (heart5.body) {heart5.kill();}
+          if (heart4.body) {heart4.kill();}
+          if (heart3.body) {heart3.kill();}
+          console.log("deleted heart 3"); 
+        }
+        if (health == 1) { 
+          if (heart5.body) { heart5.kill(); }
+          if (heart4.body) {heart4.kill();}
+          if (heart3.body) {heart3.kill();}
+          if (heart2.body) {heart2.kill();}
+          console.log("deleted heart 2"); 
+        }
         if (health == 0) { this.game.state.start("level1"); }
       }
     }
   }
 }
- //             _   _
- //            /\\_//\
- //           / o _ o \
- //          /_   X   _\
- //            \_____/
- //            /  o  \
- //           /       \__
- //           \_(_|_)___ \
- //                  (___/
- // By will Roy
- 
+//             _   _
+//            /\\_//\
+//           / o _ o \
+//          /_   X   _\
+//            \_____/
+//            /  o  \
+//           /       \__
+//           \_(_|_)___ \
+//                  (___/
+// By will Roy
+

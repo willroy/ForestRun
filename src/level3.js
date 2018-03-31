@@ -3,7 +3,6 @@ var character = null;
 var enemy = null;
 var rocket = null; 
 var reload;
-var health = 5;
 var heart1, heart2, heart3, heart4, heart5;
 var end;
 var keyw,keyd,keya;
@@ -29,6 +28,7 @@ level3.prototype = {
     heart3 = this.game.add.sprite(30,10,"heart");
     heart4 = this.game.add.sprite(40,10,"heart");
     heart5 = this.game.add.sprite(50,10,"heart");
+    
     this.platforms.create(200,365,"platform_i");
     this.platforms.create(647,300,"platform_ni");
     this.platforms.create(510,340,"platform_ni");
@@ -52,9 +52,17 @@ level3.prototype = {
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     reload = 1;
    
-    var health = 5
   },
   update: function(){
+    if (health == 0) { this.game.state.start("level1");
+    } else {
+    
+    if (health == 1) { heart2.kill(); heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 2) { heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 3) { heart4.kill(); heart5.kill(); }
+    if (health == 4) { heart5.kill(); }
+    }
+    console.log(health);
     this.game.physics.arcade.collide(character, this.platforms);
     this.game.physics.arcade.collide(rocket, this.platforms);
     this.game.physics.arcade.collide(enemy, this.platforms);
@@ -80,11 +88,6 @@ level3.prototype = {
       character.x = 0;
       character.y = 0;
       health -= 1;
-      if (health == 4) { heart5.kill();console.log("deleted heart 5"); }
-      if (health == 3) { heart4.kill();console.log("deleted heart 4"); }
-      if (health == 2) { heart3.kill();console.log("deleted heart 3"); }
-      if (health == 1) { heart2.kill();console.log("deleted heart 2"); }
-      if (health == 0) { this.game.state.start("level1"); }
     }
     if (finish) {
       this.game.state.start("level4");

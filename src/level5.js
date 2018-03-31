@@ -9,7 +9,6 @@ var attackcounter = 0;
 var keyw,keyd,keya;
 level5.prototype = {
   create: function(){
-    var health = 5
     this.stage.backgroundColor = "#FFFFFF";
     this.game.add.sprite(0,0,"background5");
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -17,13 +16,13 @@ level5.prototype = {
     boss = this.game.add.sprite(150,-600,"boss");
     boss.animations.add("idle",[0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
     this.game.physics.enable(boss);
-    //end = this.game.add.sprite(690,209,"nextlevel");
 
     heart1 = this.game.add.sprite(10,10,"heart");
     heart2 = this.game.add.sprite(20,10,"heart");
     heart3 = this.game.add.sprite(30,10,"heart");
     heart4 = this.game.add.sprite(40,10,"heart");
     heart5 = this.game.add.sprite(50,10,"heart");
+    
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     character.body.gravity.y = 1000;
@@ -58,13 +57,25 @@ level5.prototype = {
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
     reload = 1;
     attackthis = null;
+    
   },
   update: function(){
+    if (health == 0) { this.game.state.start("level1");
+    boss = this.game.add.sprite(150,-600,"boss");
+    boss.animations.add("idle",[0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+    this.game.physics.enable(boss);
+    } else {
+    if (health == 1) { heart2.kill(); heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 2) { heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 3) { heart4.kill(); heart5.kill(); }
+    if (health == 4) { heart5.kill(); }
+    }
+      
     this.game.physics.arcade.collide(character, platform1);
+    started_battle = this.game.physics.arcade.collide(character, platform2);
     this.game.physics.arcade.collide(character, platform3);
     this.game.physics.arcade.collide(character, platform4);
     this.game.physics.arcade.collide(character, this.turret);
-    started_battle = this.game.physics.arcade.collide(character, platform2);
     var standing = character.body.blocked.down || character.body.touching.down;
     var touchrocket = this.game.physics.arcade.overlap(character, rocket);
     var touchrocket2 = this.game.physics.arcade.overlap(character, rocket2);
@@ -113,6 +124,7 @@ level5.prototype = {
         rocket3.body.collideWorldBounds = true;
       }
     }
+
     if (touchrocket || touchrocket2 || touchrocket3) {
       console.log("Died");
       character.x = 0;
@@ -130,15 +142,10 @@ level5.prototype = {
       rocket.kill(); 
       rocket2.kill(); 
       rocket3.kill(); 
-      if (health == 4) { heart5.kill(); }
-      if (health == 3) { heart4.kill(); }
-      if (health == 2) { heart3.kill(); }
-      if (health == 1) { heart2.kill(); }
-      if (health == 0) { this.game.state.start("level1"); }
-      if (attackthis) { attackthis.kill(); }
     }
    if (attackcounter == 190) {
       rocket.kill(); 
+      done = false
       rocket2.kill(); 
       rocket3.kill(); 
       platform1.frame = 4;
@@ -177,9 +184,9 @@ level5.prototype = {
      platform2.frame = 1;
      platform3.frame = 1;
    }
-   if (character.y >= 325) {
-     console.log("Died");
-     character.x = 0;
+    if (character.y >= 325) {
+       console.log("Died");
+       character.x = 0;
      character.y = 0;
      health -= 1;
      boss.x = 150; 
@@ -198,32 +205,59 @@ level5.prototype = {
      platform4.frame = 1;
      platform2.frame = 1;
      platform3.frame = 1;
-     rocket.kill(); 
-     rocket2.kill(); 
-     rocket3.kill(); 
-     if (health == 4) { heart5.kill(); }
-     if (health == 3) { heart4.kill(); }
-     if (health == 2) { heart3.kill(); }
-     if (health == 1) { heart2.kill(); }
-     if (health == 0) { this.game.state.start("level1"); }
-     if (attackthis) { attackthis.kill(); } } if (attackcounter == 600){ rocket = this.rocket.create(170,-10, "rocket"); rocket2 = this.rocket.create(380,-10,"rocket"); rocket3 = this.rocket.create(620,-10,"rocket"); this.game.physics.enable(rocket); rocket.body.collideWorldBounds = true; if (rocket !== null) { reload += 1; this.game.physics.enable(rocket); rocket.body.gravity.y = 1000 ; rocket.body.collideWorldBounds = true; } if (rocket2 !== null) { reload += 1; this.game.physics.enable(rocket2); rocket2.body.gravity.y = 1000 ; rocket2.body.collideWorldBounds = true; } if (rocket3 !== null) { reload += 1; this.game.physics.enable(rocket3); rocket3.body.gravity.y = 1000 ; rocket3.body.collideWorldBounds = true; } } if (attackcounter == 690) { rocket.kill(); rocket2.kill(); 
-      rocket3.kill(); 
-      attackthis = this.game.add.sprite(385, 230, "heart");
-      this.game.physics.enable(attackthis);
-      var attackedthis = this.game.physics.arcade.collide(character, attackthis);
+     if (rocket !== null)
+        rocket.kill();
+     end
+     if (rocket2 !== null)
+       rocket2.kill();
+     end
+     if (rocket3 !== null)
+        rocket3.kill();
+     end
+     
+        
+    if (attackthis) { attackthis.kill(); } } 
+    if (attackcounter == 600){ rocket = this.rocket.create(170,-10, "rocket");
+         rocket2 = this.rocket.create(380,-10,"rocket"); 
+         rocket3 = this.rocket.create(620,-10,"rocket");
+         this.game.physics.enable(rocket); 
+         rocket.body.collideWorldBounds = true; 
+    if (rocket !== null) { 
+        reload += 1;
+        this.game.physics.enable(rocket);
+        rocket.body.gravity.y = 1000 ;
+        rocket.body.collideWorldBounds = true; }
+    if (rocket2 !== null) { 
+        reload += 1; 
+        this.game.physics.enable(rocket2);
+        rocket2.body.gravity.y = 1000 ;
+        rocket2.body.collideWorldBounds = true; } 
+    if (rocket3 !== null) { 
+        reload += 1; 
+        this.game.physics.enable(rocket3);
+        rocket3.body.gravity.y = 1000 ; 
+        rocket3.body.collideWorldBounds = true; } }
+    if (attackcounter == 690) { 
+        rocket.kill(); 
+        rocket2.kill(); 
+        rocket3.kill(); 
     }
-
-    console.log(attackedthis); 
-    if (attackedthis) {
-      console.log(bosshealth);
-      bosshealth -= 1;
+    console.log(health);
+    if (attackcounter > 690 && attackcounter < 780) {
+      //do something that lets the player know to "hit" it.
     }
     if (attackcounter == 800) {
-      attackcounter = 2;
-      attackthis.kill();
+      if (character.x > 282 && character.x < 529 && done == false) {
+      bosshealth -= 1;
+      done = true
+    }
+        attackcounter = 2;
     }
     if (bosshealth <= 0) {
+      attackcounter == -1000000;
       boss.kill();
+      end = this.game.add.sprite(690,209,"nextlevel");
+      this.game.physics.enable(end);
     }
     if (character.body) {
       character.body.velocity.x = 0;
@@ -234,10 +268,10 @@ level5.prototype = {
     } if (keyw.isDown && standing || cursors.up.isDown && standing) {
       character.body.velocity.y = -400;
     }
-
-
+    
     if (finish) {
-      this.game.state.start("level4");
+      finished = true;
+      this.game.state.start("GameTitle");
     }
   }
 }

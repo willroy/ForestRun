@@ -5,6 +5,7 @@ preload.prototype = {
     this.stage.backgroundColor = "#FFFFFF"
     
     this.game.load.image('start', 'assets/menu/start.png');
+    this.game.load.image('startmenu', 'assets/menu/start.png');
     this.game.load.image('character', 'assets/character/character.png');
     this.game.load.image('enemy', 'assets/npcs/RightMonnew.png');
     this.game.load.spritesheet('boss', 'assets/npcs/boss.png', 500,500, 14);
@@ -23,6 +24,7 @@ preload.prototype = {
     this.game.load.spritesheet('boss_platform', 'assets/platforms/SSbossplatform.png', 153, 40, 2);
 
     this.game.load.image('back', 'assets/menu/background.png');
+    this.game.load.image('backgameover', 'assets/menu/background.png');
     this.game.load.image('background1', 'assets/levelbackgrounds/backgroundl1.png');
     this.game.load.image('background2', 'assets/levelbackgrounds/backgroundl2.png');
     this.game.load.image('background3', 'assets/levelbackgrounds/backgroundl3.png');

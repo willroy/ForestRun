@@ -38,11 +38,14 @@ level1.prototype = {
     this.platforms.create(647,340,"platform_ni");
     this.platforms.create(510,340,"platform_ni");
     
-    heart1 = this.game.add.sprite(10,10,"heart");
-    heart2 = this.game.add.sprite(20,10,"heart");
-    heart3 = this.game.add.sprite(30,10,"heart");
-    heart4 = this.game.add.sprite(40,10,"heart");
-    heart5 = this.game.add.sprite(50,10,"heart");
+    if (health = 5) {
+        heart1 = this.game.add.sprite(10,10,"heart");
+        heart2 = this.game.add.sprite(20,10,"heart");
+        heart3 = this.game.add.sprite(30,10,"heart");
+        heart4 = this.game.add.sprite(40,10,"heart");
+        heart5 = this.game.add.sprite(50,10,"heart");
+    }
+    
     this.platforms.create(440,340,"platform_ni");
     this.platforms.create(160,340,"platform_ni");
     this.platforms.create(60,340,"platform_ni");
@@ -58,11 +61,25 @@ level1.prototype = {
     keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
     keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-    health = 5;
   },
   //handles level events, movement, collsion detection, health and end level
   //events
   update: function(){
+    
+    if (health == 0) { health = 5; character.x = 0; character.y = 100;
+    heart1 = this.game.add.sprite(10,10,"heart");
+    heart2 = this.game.add.sprite(20,10,"heart");
+    heart3 = this.game.add.sprite(30,10,"heart");
+    heart4 = this.game.add.sprite(40,10,"heart");
+    heart5 = this.game.add.sprite(50,10,"heart");
+    } else {
+    
+    if (health == 1) { heart2.kill(); heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 2) { heart3.kill(); heart4.kill(); heart5.kill(); }
+    if (health == 3) { heart4.kill(); heart5.kill(); }
+    if (health == 4) { heart5.kill(); }
+    }
+
     //add collsions for characters and platforms to allow player to use
     //platforms to get to places.
     this.game.physics.arcade.collide(character, this.platforms);
@@ -96,16 +113,16 @@ level1.prototype = {
     if (character.y >= 325) {
       console.log("Died");
       character.x = 0;
-      character.y = 0;
+      character.y = 100;
       health -= 1;
-      if (health == 4) { heart5.kill();console.log("deleted heart 5"); }
-      if (health == 3) { heart4.kill();console.log("deleted heart 4"); }
-      if (health == 2) { heart3.kill();console.log("deleted heart 3"); }
-      if (health == 1) { heart2.kill();console.log("deleted heart 2"); }
-      if (health == 0) { this.game.state.start("level1"); }
     }
     //if touched door then go to the next level.
     if (finish) {
+      heart1 = this.game.add.sprite(10,10,"heart");
+      heart2 = this.game.add.sprite(20,10,"heart");
+      heart3 = this.game.add.sprite(30,10,"heart");
+      heart4 = this.game.add.sprite(40,10,"heart");
+      heart5 = this.game.add.sprite(50,10,"heart");
       this.game.state.start("level2");
     }
   }

@@ -1,18 +1,16 @@
 var boot = function(game){
 };
-  
+
 boot.prototype = {
-	preload: function(){
-	},
-  	create: function(){
-		//this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.scale.pageAlignHorizontally = true;
-                this.scale.pageAlignVertically = true;
-		this.scale.setScreenSize();
-		this.game.state.start("Preload");
-	}
+  create: function(){
+    //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+    this.scale.setScreenSize();
+    this.game.state.start("Preload");
+  }
 }
- //             _   _
+//             _   _
  //            /\\_//\
  //           / o _ o \
  //          /_   X   _\
