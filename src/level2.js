@@ -12,7 +12,7 @@ level2.prototype = {
     character = this.game.add.sprite(0,0,"character");
     this.game.physics.enable(character);
     this.game.physics.enable(end);
-    ccharacter.body.gravity.y = 1000;
+    character.body.gravity.y = 1000;
     character.body.collideWorldBounds = true;
     
     heart1 = this.game.add.sprite(10,10,"heart");
